@@ -1,8 +1,9 @@
 package com.recruitment.team.model.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -11,38 +12,43 @@ import com.recruitment.team.model.entity.Recruiter;
 
 @Stateless
 public class RecruiterService {
-	@PersistenceContext(name="jsf-template-assignment")
-	private EntityManager em;
 	
+	@PersistenceContext(name = "jsp-jpa-recruiter")
+	private EntityManager em;
 	
 	public RecruiterService(EntityManager createEntityManager) {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Recruiter check(String username, String password) throws EntityNotFoundException{
-		TypedQuery<Recruiter> query=em.createNamedQuery("Recruiter.login",Recruiter.class);
-		query.setParameter("name", username);
-		query.setParameter("pass", password);
-		return query.getSingleResult();
+	public List<Recruiter> findAll() {
+		TypedQuery<Recruiter> query = em.createNamedQuery("Recruiter.findAll", Recruiter.class);
+		return query.getResultList();
 	}
 
-
-	public Recruiter findById(int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	public Recruiter findById(int id) {
+		return em.find(Recruiter.class, id);
 	}
 
+	public void save(Recruiter recruiter) {
+		if (recruiter.getId() == 0) 
+			em.persist(recruiter);
+		else
+			em.merge(recruiter);
+	}
 
-	public static void save(Recruiter recruiter) {
-		// TODO Auto-generated method stub
+	public void delete(int rid) {
+		Recruiter r = em.find(Recruiter.class, rid);
+		em.remove(r);
 		
 	}
 
-
-	public Recruiter login(String email, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long getCountUser() {
+		TypedQuery<Long> query = em.createQuery("SELECT COUNT(r) FROM Recruiter  r",Long.class);
+		return query.getSingleResult();
 	}
+	
+	
+		
+	
 
 }

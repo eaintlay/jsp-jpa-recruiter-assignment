@@ -10,80 +10,81 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import com.recruitment.team.model.entity.Recruiter;
-import com.recruitment.team.model.service.RecruiterService;
-
+import com.recruitment.team.model.service.LoginService;
 
 
 @Named
 @SessionScoped
 public class LoginBean implements Serializable{
-	
-	
-	private String username;
+	private String email;
 	private String password;
-	
 	
 	private Recruiter loginUser;
 	
 	@EJB
-	private RecruiterService service;
-	
+	private LoginService service;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public String getUsername() {
-		return username;
+	@PostConstruct
+	private void initialize() {
+		loginUser = new Recruiter();
+		System.out.println("Login User: "+loginUser.getName());
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	
+	// actionlistener method
+	public void checkUser() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			loginUser = service.check(email,password);
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage("The username or password you entered is incorrect ! ");
+			context.addMessage("login", msg);
+			context.validationFailed();
+		}
+		
 	}
+	
+	// action method
+	public String authenticateUser() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(context.isValidationFailed())
+			return null;
+		return "/views/companys?faces-redirect=true"; 
+		
+	}
+	
+public String logout() {
+	// destroy session
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/index?faces-redirect=true";
+		
+	}
+	
+	public Recruiter getLoginUser() {
+		return loginUser;
+	}
+	public void setLoginUser(Recruiter loginUser) {
+		this.loginUser = loginUser;
+	}
+
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@PostConstruct
-	private void init()
-	{
-		loginUser=new Recruiter();
-	}
-	//action listener method
-		public void checkUser()
-		{
-			FacesContext context=FacesContext.getCurrentInstance();
-			try {
-			loginUser=service.check(username, password);
-			}catch(Exception e)
-			{
-				FacesMessage msg=new FacesMessage("Invalid Login!");
-				context.addMessage(null, msg);
-				context.validationFailed();
-			}
-		}
-		
-		//action method
-		public String authenticateUser()
-		{
-			FacesContext context=FacesContext.getCurrentInstance();
-			if(context.isValidationFailed())
-				return null;
-			return "/views/dashboard?faces-redirect=true";
-		}
-		
-		//logout method
-		public String processLogOut()
-		{
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			return "/index?faces-redirect=true";
-		}
-		
-		public Recruiter getLoginUser() {
-			return loginUser;
-		}
-		public void setLoginUser(Recruiter loginUser) {
-			this.loginUser = loginUser;
-		}
+	
 	
 
 }
