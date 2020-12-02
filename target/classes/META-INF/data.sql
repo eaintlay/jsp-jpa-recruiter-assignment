@@ -20,8 +20,8 @@ INSERT INTO CandidateJoborderStatus  (`id`,`short_description`) VALUES ('1000', 
 
 
 
-INSERT INTO Recruiter (`email`, `name`, `password`, `phone`) VALUES ('eht@gmail.com', 'eht', '123', '4545454545');
-INSERT INTO Recruiter (`email`, `name`, `password`, `phone`) VALUES ('eaint@gmail.com', 'eaint', '123', '635454555');
+INSERT INTO Recruiter (`email`, `name`, `password`, `phone`) VALUES ('eht@gmail.com', 'eht', '082179', '4545454545');
+INSERT INTO Recruiter (`email`, `name`, `password`, `phone`) VALUES ('eaint@gmail.com', 'eaint', '082179', '635454555');
 
 INSERT INTO Company (`address`, `email`, `entry_date`, `ishot`, `name`, `ownerName`, `phone1`, `phone2`, `remark`, `website`, `entryBy`, `township_id`) VALUES ('3626  Villa Drive', 'test@gmail.com', '2020-11-23', 'yes', 'TEST', 'Paing', '567564545', '5446687', 'Hey', 'test@gmail.com', '1', '1');
 INSERT INTO Company (`address`, `email`, `entry_date`, `ishot`, `name`, `ownerName`, `phone1`, `phone2`, `remark`, `website`, `entryBy`, `township_id`) VALUES ('Villa Drive', 'abc@gmail.com', '2020-11-24', 'yes', 'ABC', 'Thant', '567564545', '5446687', 'Hey', 'abc@gmail.com', '1', '2');
