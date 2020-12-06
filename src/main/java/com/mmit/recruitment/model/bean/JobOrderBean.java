@@ -1,3 +1,4 @@
+
 package com.mmit.recruitment.model.bean;
 
 import java.time.LocalDate;
