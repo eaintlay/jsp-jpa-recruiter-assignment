@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="title">Calendar</ui:define>
+	<ui:define name="head">Calendar List</ui:define>
+		<ui:define name="content">
+			<div class="container" id="showdetail">
+				<table>
+					<tbody id="tbody">
+					</tbody>
+				</table>
+			</div>
+		<!-- /.container-fluid -->
+		</ui:define>
+	<ui:define name="scripts">
+		<script type="text/javascript">
+		let tbody = document.querySelector('#tbody');
+		let insertdayname ='';
+		let html='';
+		let date = new Date();
+		let currentday = date.getDate();
+		const monthNames = ["January", "February", "March", "April", "May", "June",
+  						"July", "August", "September", "October", "November", "December"];
+  		document.querySelector('#month').innerHTML = monthNames[date.getMonth()];
+  		document.querySelector('#year').innerHTML  = date.getFullYear();
+  		// get lastday
+  		var lastDay = new Date(new Date(2008, 11+1,1) - 1).getDate();
+		var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+		firstDay = firstDay.getDay();
+		// console.log(firstDay);
+		let weekends = new Array();
+		let count =0;
+		for(let i=1;i=lastDay;i++){
+			// console.log(i);
+			let cond = new Date(date.getFullYear(), date.getMonth(), i);
+			// console.log(cond);
+			if (cond.getDay() ==0 || cond.getDay() ==6) {
+					weekends[count]=i;
+					count++;
+			}
+		}
+		for(let i =1;i=firstDay;i++){
+			html+=`<td><span></span></td>`
+		}
+		for(let day of days){
+			insertdayname+=`<div class="day">
+								<p>${day}</p>
+							</div>`
+		}
+		// console.log(insertdayname);
+		document.querySelector('.showday').innerHTML = insertdayname;
+		for(let i =1;i=lastDay;i++){
+			if (i==1) {
+				if (i==currentday) {
+						html +=`<td><span class="dayshow">
+									<span class="current">${i}</span>
+									<span class="firstday">${monthNames[date.getMonth()].slice(0,3)}</span>
+									</span>
+								</td>`
+				}else{
+					html +=`<td><span class="dayshow">
+								<span>${i}</span>
+								<span class="firstday">${monthNames[date.getMonth()].slice(0,3)}</span>
+								</span>
+							</td>`
+				}
+			}else{
+				if (i==currentday) {
+					let boolean =false;
+					for(let j of weekends){
+						if(j == i){
+							html +=`<td class="weekend"><span class="current dayshow ">${i}</span></td>`
+							boolean = true;
+							break;
+						}else{
+							boolean=false;
+						}
+					}
+					if(!boolean){
+						html +=`<td><span class="current dayshow ">${i}</span></td>`
+					}
+				}else{
+					let boolean =false;
+					for(let j of weekends){
+						if(j == i){
+							html +=`<td class="weekend"><span class="dayshow ">${i}</span></td>`
+							boolean = true;
+							break;
+						}else{
+							boolean=false;
+						}
+					}
+					if(!boolean){
+						html +=`<td><span class="dayshow">${i}</span></td>`
+					}
+				}
+			}
+		}		
+		tbody.innerHTML = html;
+	</script>
+	</ui:define>
+</ui:composition>
+</html>

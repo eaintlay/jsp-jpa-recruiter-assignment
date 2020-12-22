@@ -3,6 +3,7 @@ package com.mmit.recruitment.model.bean;
 import java.util.List;
 
 
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

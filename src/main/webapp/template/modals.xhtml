@@ -33,6 +33,89 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 id="modalTitle" class="modal-title ml-3">Interview Detail</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                
+            </div>
+            <div id="modalBody" class="modal-body pb-0">
+            	<div class="container">
+		        
+					 <form class="form mt-3">
+					  <div class="form-group row">
+					     <div class="col-sm-6">
+					      <p>Company:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="company" class="d-inline"></p>
+					      <span class="float-right d-inline">
+					      	<h:form>
+							<h:commandLink  id="interviewEdit" styleClass="" >
+								<i class="fas fa-pencil-alt"></i>
+								<f:ajax  listener="#{jobPipelineBean.findById(j.id)}"  render="editForm\\:select_status editForm\\:hidden_status"  execute="@this"  />
+									                	
+							</h:commandLink>
+						</h:form>
+					      </span>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <div class="col-sm-6">
+					      <p>Candidate:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="candidate"></p>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <div class="col-sm-6">
+					      <p>Status:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="status"></p>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <div class="col-sm-6">
+					      <p>Date:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="date"></p>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <div class="col-sm-6">
+					      <p>Type:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="type"></p>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <div class="col-sm-6">
+					      <p>Interval:</p>
+					    </div>
+					    <div class="col-sm-6">
+					      <p id="interval"></p>
+					    </div>
+					  </div>
+					</form>
+		         
+		         
+					
+				
+		          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 
 	</ui:composition>
 </body> 
 </html>
